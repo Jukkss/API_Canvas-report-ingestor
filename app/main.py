@@ -16,6 +16,17 @@ app = FastAPI(
 app.include_router(reports_router)
 
 
+@app.get("/", tags=["root"])
+async def root() -> dict[str, str]:
+    return {
+        "status": "ok",
+        "service": settings.app_name,
+        "health": "/health",
+        "docs": "/docs",
+        "process_student_analysis": "/reports/student-analysis/process",
+    }
+
+
 @app.get("/health", tags=["health"])
 async def health_check() -> dict[str, str]:
     return {"status": "ok", "service": settings.app_name}

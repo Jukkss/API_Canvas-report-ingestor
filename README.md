@@ -103,6 +103,7 @@ vercel --prod
 Após o deploy, os endpoints mantêm os mesmos caminhos:
 
 ```text
+https://SEU-PROJETO.vercel.app/
 https://SEU-PROJETO.vercel.app/health
 https://SEU-PROJETO.vercel.app/reports/student-analysis/process
 https://SEU-PROJETO.vercel.app/docs
