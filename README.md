@@ -90,6 +90,24 @@ Documentação automática:
 http://127.0.0.1:8000/docs
 ```
 
+## Deploy no Vercel
+
+O projeto inclui `api/index.py` como entrypoint serverless e `vercel.json` para rotear todas as chamadas HTTP para a aplicação FastAPI.
+
+Deploy:
+
+```bash
+vercel --prod
+```
+
+Após o deploy, os endpoints mantêm os mesmos caminhos:
+
+```text
+https://SEU-PROJETO.vercel.app/health
+https://SEU-PROJETO.vercel.app/reports/student-analysis/process
+https://SEU-PROJETO.vercel.app/docs
+```
+
 ## Variáveis de ambiente
 
 Todas usam o prefixo `CANVAS_PROCESSOR_`.
