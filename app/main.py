@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from app.config import settings
 from app.controllers.reports import router as reports_router
@@ -16,15 +17,9 @@ app = FastAPI(
 app.include_router(reports_router)
 
 
-@app.get("/", tags=["root"])
-async def root() -> dict[str, str]:
-    return {
-        "status": "ok",
-        "service": settings.app_name,
-        "health": "/health",
-        "docs": "/docs",
-        "process_student_analysis": "/reports/student-analysis/process",
-    }
+@app.get("/", include_in_schema=False)
+async def root() -> RedirectResponse:
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health", tags=["health"])
