@@ -27,7 +27,7 @@ class ReportProcessor:
 
         if payload.output_format == "comments":
             return CommentsOnlyResponse(
-                comentarios=[comment.comment for comment in parsed.comments],
+                comentarios=parsed.comments,
             )
 
         if payload.output_format == "compact":
@@ -37,7 +37,7 @@ class ReportProcessor:
                 total_comentarios=len(parsed.comments),
                 linhas_invalidas=parsed.invalid_rows,
                 respostas=[
-                    CompactComment(nota=comment.grade, comentario=comment.comment)
+                    CompactComment(nota=comment.grade, comentario=comment.comment, submitted=comment.submitted)
                     for comment in parsed.comments
                 ],
             )

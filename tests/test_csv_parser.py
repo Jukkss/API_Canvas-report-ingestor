@@ -48,9 +48,18 @@ def test_parse_canvas_open_question_column_as_comment() -> None:
     assert result.invalid_rows == 1
     assert len(result.comments) == 1
     assert result.comments[0].section == "Turma A"
+    assert result.comments[0].submitted == "2026-05-06"
     assert result.comments[0].question == "5754082: Diga o que motivou sua resposta acima."
     assert result.comments[0].grade == "9"
     assert result.comments[0].comment == "Material claro e boa didática"
+
+
+def test_parse_submited_alias() -> None:
+    content = "submited,comment\n2026-05-07,Comentário válido\n".encode("utf-8")
+
+    result = parse_student_analysis_csv(content)
+
+    assert result.comments[0].submitted == "2026-05-07"
 
 
 def test_parse_ignores_unknown_preferred_encoding() -> None:
