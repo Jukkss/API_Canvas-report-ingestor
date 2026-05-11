@@ -69,6 +69,7 @@ COLUMN_ALIASES = {
     "course_id": {"course_id", "sis_course_id", "id_curso"},
     "course_name": {"course_name", "course", "curso", "nome_curso"},
     "section": {"section", "section_name", "turma"},
+    "submitted": {"submitted", "submited", "submitted_at", "submitted date", "data_envio", "data_de_envio"},
     "question": {"question", "question_text", "pergunta", "questao"},
 }
 
@@ -220,6 +221,7 @@ def parse_student_analysis_csv(content: bytes, preferred_encoding: str | None = 
                     course_id=_extract_value(clean_row, COLUMN_ALIASES["course_id"]),
                     course_name=_extract_value(clean_row, COLUMN_ALIASES["course_name"]),
                     section=_extract_value(clean_row, COLUMN_ALIASES["section"]),
+                    submitted=_extract_value(clean_row, COLUMN_ALIASES["submitted"]),
                     question=question or _extract_value(clean_row, COLUMN_ALIASES["question"]),
                     grade=_extract_grade(clean_row, question),
                     comment=comment,

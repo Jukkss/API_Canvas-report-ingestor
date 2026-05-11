@@ -12,9 +12,9 @@ class FakeDownloader:
 
     async def download(self, url: str) -> DownloadResult:
         content = (
-            'student_id,student_name,"5754081: Em uma escala de 0 a 10, quanto você indicaria esta disciplina?",'
+            'student_id,student_name,submitted,"5754081: Em uma escala de 0 a 10, quanto você indicaria esta disciplina?",'
             "5754082: Diga o que motivou sua resposta acima.\n"
-            "1,Maria,10,Texto qualitativo\n"
+            "1,Maria,2026-05-06,10,Texto qualitativo\n"
         ).encode("utf-8")
         return DownloadResult(
             content=content,
@@ -44,6 +44,7 @@ async def test_report_processor_downloads_and_parses_file_id() -> None:
     assert response.metadata.redirect_count == 1
     assert response.metadata.source_url.endswith("verifier=abc")
     assert response.comments[0].student_name == "Maria"
+    assert response.comments[0].submitted == "2026-05-06"
     assert response.comments[0].grade == "10"
 
 
@@ -57,6 +58,7 @@ async def test_json_response_comments_expose_only_grade_and_comment() -> None:
 
     assert serialized["comments"] == [
         {
+            "submitted": "2026-05-06",
             "grade": "10",
             "comment": "Texto qualitativo",
         }
@@ -70,7 +72,13 @@ async def test_report_processor_returns_comments_only_by_default() -> None:
 
     response = await processor.process(payload)
 
-    assert response.comentarios == ["Texto qualitativo"]
+    assert response.model_dump()["comentarios"] == [
+        {
+            "submitted": "2026-05-06",
+            "grade": "10",
+            "comment": "Texto qualitativo",
+        }
+    ]
 
 
 @pytest.mark.asyncio
@@ -84,6 +92,7 @@ async def test_report_processor_returns_compact_response_when_requested() -> Non
     assert response.total_comentarios == 1
     assert response.respostas[0].nota == "10"
     assert response.respostas[0].comentario == "Texto qualitativo"
+    assert response.respostas[0].submitted == "2026-05-06"
 
 
 @pytest.mark.asyncio

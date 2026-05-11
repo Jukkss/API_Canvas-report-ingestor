@@ -48,6 +48,7 @@ class CsvComment(BaseModel):
     course_name: str | None = Field(default=None, exclude=True)
     section: str | None = Field(default=None, exclude=True)
     question: str | None = Field(default=None, exclude=True)
+    submitted: str | None = None
     grade: str | None = None
     comment: str
     raw: dict[str, Any] = Field(default_factory=dict, exclude=True)
@@ -77,6 +78,7 @@ class ReportProcessResponse(BaseModel):
 class CompactComment(BaseModel):
     nota: str | None = None
     comentario: str
+    submitted: str | None = None
 
 
 class CompactReportResponse(BaseModel):
@@ -88,4 +90,4 @@ class CompactReportResponse(BaseModel):
 
 
 class CommentsOnlyResponse(BaseModel):
-    comentarios: list[str]
+    comentarios: list[CsvComment]

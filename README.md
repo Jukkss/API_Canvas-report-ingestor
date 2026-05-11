@@ -45,8 +45,16 @@ Resposta padrão, otimizada para IA Hub:
 ```json
 {
   "comentarios": [
-    "Excelente material didático.",
-    "O conteúdo do curso está antigo."
+    {
+      "submitted": "2026-05-06",
+      "grade": "10",
+      "comment": "Excelente material didático."
+    },
+    {
+      "submitted": "2026-05-07",
+      "grade": "8",
+      "comment": "O conteúdo do curso está antigo."
+    }
   ]
 }
 ```
@@ -97,13 +105,21 @@ Sem informar `output_format`, o retorno traz somente os comentários:
 ```json
 {
   "comentarios": [
-    "Excelente material didático.",
-    "O conteúdo do curso está antigo."
+    {
+      "submitted": "2026-05-06",
+      "grade": "10",
+      "comment": "Excelente material didático."
+    },
+    {
+      "submitted": "2026-05-07",
+      "grade": "8",
+      "comment": "O conteúdo do curso está antigo."
+    }
   ]
 }
 ```
 
-Este é o formato recomendado para enviar diretamente a um fluxo de IA.
+Este é o formato recomendado para enviar diretamente a um fluxo de IA. A chave `comentarios` continua sendo o ponto principal da resposta, agora com cada comentário acompanhado do respectivo `submitted`.
 
 ### Compacto: nota e comentário
 
@@ -127,7 +143,8 @@ Resposta:
   "respostas": [
     {
       "nota": "10",
-      "comentario": "Excelente material didático."
+      "comentario": "Excelente material didático.",
+      "submitted": "2026-05-06"
     }
   ]
 }
@@ -148,6 +165,7 @@ Neste modo, `comments` retorna apenas:
 
 ```json
 {
+  "submitted": "2026-05-06",
   "grade": "10",
   "comment": "Excelente material didático."
 }
